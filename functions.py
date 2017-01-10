@@ -1,3 +1,7 @@
+def cross(A, B):
+    "Cross product of elements in A and elements in B."
+    return [a+b for a in A for b in B]
+
 def grid_values(grid):
     #print('grid_values')
     "Convert grid into a dict of {square: char} with '0' or '.' for empties."
