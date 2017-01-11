@@ -7,6 +7,13 @@ def cross(A, B):
     return [a+b for a in A for b in B]
 
 squares = cross(rows, cols)
+unitlist = ([cross(rows, c) for c in cols] +
+            [cross(r, cols) for r in rows] +
+            [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')])
+units = dict((s, [u for u in unitlist if s in u]) 
+             for s in squares)
+peers = dict((s, set(sum(units[s],[]))-set([s]))
+             for s in squares)
 
 def grid_values(grid):
     #print('grid_values')
