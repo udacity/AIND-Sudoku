@@ -1,8 +1,12 @@
 digits   = '123456789'
+rows     = 'ABCDEFGHI'
+cols     = digits
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
     return [a+b for a in A for b in B]
+
+squares = cross(rows, cols)
 
 def grid_values(grid):
     #print('grid_values')
