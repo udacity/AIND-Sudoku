@@ -111,19 +111,13 @@ def search(values):
     At any given point, it picks the box with fewer available values
     (if there is more than one, it will pick some box), and propagate over that box.
     '''
-    #new_values = values.copy()
     new_values = reduce_puzzle(values.copy())
     if new_values is False:
-        #print "Failing!!"
         return False ## Failed earlier
     if all(len(new_values[s]) == 1 for s in squares):
-        #print "Done!!"
         return new_values ## Solved!
     ## Chose the unfilled square s with the fewest possibilities
-    #print "Choosing a box"
     n,s = min((len(new_values[s]), s) for s in squares if len(new_values[s]) > 1)
-    #print "making choice", n, s
-    #print display(values)
     for value in new_values[s]:
         new_sudoku = new_values.copy()
         new_sudoku[s] = value
