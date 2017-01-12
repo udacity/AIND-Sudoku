@@ -51,6 +51,27 @@ diag_units = dict((s, [u for u in diag_unitlist if s in u])
 diag_peers = dict((s, set(sum(diag_units[s],[]))-set([s]))
              for s in squares)
 
+def grid_values(grid):
+    "Convert grid into a dict of {square: char} with '.' for empties."
+    chars = []
+    for c in grid:
+        if c in digits:
+            chars.append(c)
+        if c == '.':
+            chars.append(digits)
+    assert len(chars) == 81
+    return dict(zip(squares, chars))
+
+def display(values):
+    "Display these values as a 2-D grid."
+    width = 1+max(len(values[s]) for s in squares)
+    line = '+'.join(['-'*(width*3)]*3)
+    for r in rows:
+        print ''.join(values[r+c].center(width)+('|' if c in '36' else '')
+                      for c in cols)
+        if r in 'CF': print line
+    print
+
 def eliminate(values):
     '''
     Goes through all the boxes. If a box has only one available value,
@@ -124,3 +145,6 @@ def search(values):
         attempt = search(new_sudoku)
         if attempt:
             return attempt
+
+diagsudokugrid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+display(solve(diagsudokugrid))
