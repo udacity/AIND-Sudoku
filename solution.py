@@ -1,4 +1,4 @@
-# PROBLEM 1
+# PROBLEM 1: NAKED TWINS
 
 # Using the same units and peers dictionaries from the lectures.
 # Using the same reduce_puzzle() function from the lectures.
@@ -24,7 +24,7 @@ def naked_twins(values):
     return new_values
 
 
-#PROBLEM 2
+#PROBLEM 2: DIAGONAL SUDOKU
 
 digits   = '123456789'
 rows     = 'ABCDEFGHI'
