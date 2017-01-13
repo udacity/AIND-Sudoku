@@ -4,7 +4,7 @@
 # Using the same reduce_puzzle() function from the lectures.
 
 def naked_twins(values):
-    new_values = reduce_puzzle(values.copy())
+    new_values = values.copy()
     naked_twins = []
     for box in new_values:
         if len(new_values[box]) == 2:
@@ -124,7 +124,7 @@ def reduce_puzzle(values):
             return False
     return new_values
 
-def solve(grid): return search(grid_values(grid))
+def solve(grid): return search(grid)
 
 def search(values):
     '''
@@ -146,5 +146,3 @@ def search(values):
         if attempt:
             return attempt
 
-diagsudokugrid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-display(solve(diagsudokugrid))
