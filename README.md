@@ -18,6 +18,10 @@ We recommend students install [Anaconda](https://www.continuum.io/downloads), a 
 
 Template code is provided in the `sudoku_solver.ipynb` notebook file. You will also be required to use the included `sudoku.py` Python file and the `puzzles.txt` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
 
+### Visualizing
+
+To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in function.py
+
 ### Run
 
 In a terminal or command window, navigate to the top-level project directory `sudoku/` (that contains this README) and run one of the following commands:
