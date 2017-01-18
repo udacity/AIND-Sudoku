@@ -1,7 +1,6 @@
 import sys, os, random, pygame
 sys.path.append(os.path.join("objects"))
 import SudokuSquare
-import SudokuGrid
 from GameResources import *
 
 digits = '123456789'
