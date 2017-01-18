@@ -1,3 +1,18 @@
+from visualize import visualize_assignments
+
+assignments = []
+
+def assign_value(values, box, value):
+    """
+    Please use this function to update your values dictionary!
+    Assigns a value to a given box. If it updates the board record it.
+    """
+    values[box] = value
+    if len(value) == 1:
+        assignments.append(values.copy())
+    return values
+
+
 # PROBLEM 1: NAKED TWINS
 
 # Using the same units and peers dictionaries from the lectures.
@@ -17,8 +32,8 @@ def naked_twins(values):
         for unit in units:
             for box in unit:
                 if box != nt[0] and box != nt[1]:
-                    new_values[box] = new_values[box].replace(new_values[nt[0]][0], '')
-                    new_values[box] = new_values[box].replace(new_values[nt[0]][1], '')
+                    assign_value(new_values, box, new_values[box].replace(new_values[nt[0]][0], ''))
+                    assign_value(new_values, box, new_values[box].replace(new_values[nt[0]][1], ''))
     if len([box for box in new_values.keys() if len(new_values[box]) == 0]):
         return False
     return new_values
@@ -82,7 +97,7 @@ def eliminate(values):
     for box in solved_values:
         digit = new_values[box]
         for peer in diag_peers[box]:
-            new_values[peer] = new_values[peer].replace(digit,'')
+            assign_value(new_values, peer, new_values[peer].replace(digit, ''))
     return new_values
 
 def single_possibility(values):
@@ -95,7 +110,7 @@ def single_possibility(values):
         for digit in '123456789':
             dplaces = [box for box in unit if digit in new_values[box]]
             if len(dplaces) == 1:
-                new_values[dplaces[0]] = digit
+                assign_value(new_values, dplaces[0], digit)
     return new_values
 
 def reduce_puzzle(values):
@@ -146,3 +161,7 @@ def search(values):
         if attempt:
             return attempt
 
+
+diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+display(solve(grid_values(diag_sudoku_grid)))
+visualize_assignments(assignments)

@@ -14,6 +14,12 @@ You will also need to have software installed to run and execute an [iPython Not
 
 We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
 
+##### Pygame
+
+You also need to install pygame if you want to see your visualization. To do so simply run the following inside your conda env:
+
+```conda install -c tlatorre pygame=1.9.2```
+
 ### Code
 
 Template code is provided in the `sudoku_solver.ipynb` notebook file. You will also be required to use the included `sudoku.py` Python file and the `puzzles.txt` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
