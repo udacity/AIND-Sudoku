@@ -3,44 +3,26 @@
 
 ### Install
 
-This project requires **Python 2.7** and the following Python libraries installed:
+This project requires **Python 3** and the following Python libraries installed:
 
-- [NumPy](http://www.numpy.org/)
-- [Pandas](http://pandas.pydata.org)
-- [matplotlib](http://matplotlib.org/)
-- [scikit-learn](http://scikit-learn.org/stable/)
-
-You will also need to have software installed to run and execute an [iPython Notebook](http://ipython.org/notebook.html)
+- pygame
 
 We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
+Please try using the environment we provided in the Anaconda lesson of the Nanodegree.
 
 ##### Pygame
 
-You also need to install pygame if you want to see your visualization. To do so simply run the following inside your conda env:
+You also need to install pygame if you want to see your visualization. If you've followed our isntructions for setting up our conda environment, you should be all set.
 
-```conda install -c tlatorre pygame=1.9.2```
+If not, please see how to download pygame [here](http://www.pygame.org/download.shtml).
 
 ### Code
 
-Template code is provided in the `sudoku_solver.ipynb` notebook file. You will also be required to use the included `sudoku.py` Python file and the `puzzles.txt` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
+Your job is to fill out `solutions.py`. You can test your solution by running `python solution_test.py`.
 
 ### Visualizing
 
 To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in function.py
-
-### Run
-
-In a terminal or command window, navigate to the top-level project directory `sudoku/` (that contains this README) and run one of the following commands:
-
-```bash
-ipython notebook sudoku_solver.ipynb
-```  
-or
-```bash
-jupyter notebook sudoku_solver.ipynb
-```
-
-This will open the iPython Notebook software and project file in your browser.
 
 ### Data
 
