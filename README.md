@@ -1,6 +1,13 @@
 # Artificial Intelligence Nanodegree
 ## Introductory Project: Diagonal Sudoku Solver
 
+# Question 1 (Naked Twins)
+Q: How do we use constraint propagation to solve the naked twins problem?
+A: <INSERT HERE>
+
+# Question 2 (Diagonal Sudoku)
+Q: How do we use constraint propagation to solve the diagonal sudoku problem?
+
 ### Install
 
 This project requires **Python 3** and the following Python libraries installed:
