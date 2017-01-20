@@ -1,5 +1,3 @@
-from visualize import visualize_assignments
-
 assignments = []
 
 digits   = '123456789'
@@ -45,4 +43,9 @@ def search(values):
 
 diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
 display(solve(grid_values(diag_sudoku_grid)))
-visualize_assignments(assignments)
+
+try:
+    from visualize import visualize_assignments
+    visualize_assignments(assignments)
+except:
+    print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
