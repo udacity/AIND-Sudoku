@@ -42,9 +42,6 @@ def display(values):
 def only_choice(values):
     pass
 
-def single_possibility(values):
-    pass
-
 def reduce_puzzle(values):
     pass
 
