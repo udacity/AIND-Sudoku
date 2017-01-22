@@ -14,6 +14,19 @@ def assign_value(values, box, value):
         assignments.append(values.copy())
     return values
 
+def naked_twins(values):
+    """Eliminate values using the naked twins strategy.
+
+    Args:
+        values(dict): a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns:
+        the values dictionary with the naked twins eliminated from peers.
+    """
+
+    # Find all instances of naked twins
+    # Eliminate the naked twins as possibilities for their peers
+
 def cross(A, B):
     "Cross product of elements in A and elements in B."
     pass
