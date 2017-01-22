@@ -10,9 +10,7 @@ Q: How do we use constraint propagation to solve the diagonal sudoku problem?
 
 ### Install
 
-This project requires **Python 3** and the following Python libraries installed:
-
-- pygame
+This project requires **Python 3**.
 
 We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
 Please try using the environment we provided in the Anaconda lesson of the Nanodegree.
