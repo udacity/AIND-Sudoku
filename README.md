@@ -17,7 +17,7 @@ Please try using the environment we provided in the Anaconda lesson of the Nanod
 
 ##### Optional: Pygame
 
-Optionally, you can also install pygame if you want to see your visualization. If you've followed our isntructions for setting up our conda environment, you should be all set.
+Optionally, you can also install pygame if you want to see your visualization. If you've followed our instructions for setting up our conda environment, you should be all set.
 
 If not, please see how to download pygame [here](http://www.pygame.org/download.shtml).
 

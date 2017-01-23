@@ -1,9 +1,5 @@
 assignments = []
 
-digits   = '123456789'
-rows     = 'ABCDEFGHI'
-cols     = digits
-
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
