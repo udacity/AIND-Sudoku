@@ -12,7 +12,6 @@ def assign_value(values, box, value):
 
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
-
     Args:
         values(dict): a dictionary of the form {'box_name': '123456789', ...}
 
@@ -28,11 +27,23 @@ def cross(A, B):
     pass
 
 def grid_values(grid):
-    "Convert grid into a dict of {square: char} with '.' for empties."
+    """
+    Convert grid into a dict of {square: char} with '123456789' for empties.
+    Args:
+        grid(string) - A grid in string form.
+    Returns:
+        A grid in dictionary form
+            Keys: The boxes, e.g., 'A1'
+            Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
+    """
     pass
 
 def display(values):
-    "Display these values as a 2-D grid."
+    """
+    Display the values as a 2-D grid.
+    Args:
+        values(dict): The sudoku in dictionary form
+    """
     pass
 
 def eliminate(values):
