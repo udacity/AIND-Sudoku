@@ -35,6 +35,9 @@ def display(values):
     "Display these values as a 2-D grid."
     pass
 
+def eliminate(values):
+    pass
+
 def only_choice(values):
     pass
 
