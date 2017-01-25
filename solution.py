@@ -55,11 +55,18 @@ def only_choice(values):
 def reduce_puzzle(values):
     pass
 
-def solve(grid):
-    pass
-
 def search(values):
     pass
+
+def solve(grid):
+    """
+    Find the solution to a Sudoku grid.
+    Args:
+        grid(string): a string representing a sudoku grid.
+            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    Returns:
+        The string representing the final sudoku grid. False if no solution exists.
+    """
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
