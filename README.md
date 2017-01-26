@@ -31,7 +31,7 @@ If not, please see how to download pygame [here](http://www.pygame.org/download.
 
 ### Visualizing
 
-To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in function.py
+To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in solution.py
 
 ### Data
 
