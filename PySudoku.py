@@ -54,6 +54,12 @@ def play(values_list):
         pygame.display.update()
         clock.tick(5)
 
+    # leave game showing until closed by user
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
 
 if __name__ == "__main__":
     main()
