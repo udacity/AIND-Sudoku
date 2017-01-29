@@ -6,7 +6,7 @@ def assign_value(values, box, value):
     Assigns a value to a given box. If it updates the board record it.
     """
 
-    # Don't waste the time or memory appending actions that don't actually change any values
+    # Don't waste memory appending actions that don't actually change any values
     if values[box] == value:
         return values
 
