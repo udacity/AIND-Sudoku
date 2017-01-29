@@ -3,11 +3,14 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: **The Naked Twins techniques is used as constraint propagation that follows elimination and only_choice
+strategies in the reduce_puzzle() method this is to eliminate digits in other boxes in its peers with the 
+observations of naked twins boxes**
 
 # Question 2 (Diagonal Sudoku)
-Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+Q: How do we use constraint propagation to solve the diagonal sudoku problem?   
+A: **By updating the peers of each box to include diagonal elements, this constraint is automatically implement
+ in the eliminate() function and being used as a constraint propagation to solve the diagonal sudoku problem.** 
 
 ### Install
 
