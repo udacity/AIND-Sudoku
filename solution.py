@@ -22,10 +22,12 @@ def naked_twins(values):
     twin_boxes = [(box, peer) for box in values.keys() for peer in peers[box] if len(values[box]) == 2 and values[box] == values[peer]]
     # Eliminate the naked twins as possibilities for their peers
     for box_tuple in twin_boxes:
+        #Get all the units containing the twins
         twin_units = [unit for unit in unitlist if box_tuple[0] in unit and box_tuple[1] in unit]
         for twin_unit in twin_units:
             for box in twin_unit:
                 for v in values[box_tuple[0]]:
+                    #check for value of twin in each box of each unit (where the box is not a twin and is not solved)
                     if v in values[box] and box not in box_tuple and len(values[box]) > 1:
                         assign_value(values, box, values[box].replace(v, ''))
     return values
@@ -44,9 +46,12 @@ boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
+#Get the descending diagonal (i.e. A1, B2, C3...I9)
 descending_diagonal_units = [r+c for r,c in zip(rows,cols)]
+#Get the ascending diagonal (i.e. A9, B8, C7...I1)
 ascending_diagonal_units = [r+c for r,c in zip(rows,cols[::-1])]
 diagonal_units = [descending_diagonal_units, ascending_diagonal_units]
+#Add the diagonal list to the original list of units
 unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
@@ -124,6 +129,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
+        #execute naked twins elimination once other options have been run
         values = naked_twins(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
@@ -158,7 +164,9 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    #Convert grid to a dictionary
     values = grid_values(grid)
+    #init search function with dictionary
     values = search(values)
     return values
 
