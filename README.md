@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: The Naked Twins problem states that when any two peers have the same possible values (of length 2), all other boxes in the same unit can have those possible values removed (if the box has not yet been solved). Using Contstraint Propagation, the boxes to change and both equal peers must be in the same unit. Thus, logic states each unit containing the pair of equal valued peers must be found. Each box within that unit can have it's possible values reduced by removing the values in the identical pair, if the box has not yet already been solved (value of length 1). Using the units where the naked twins exist shows how Constraint Propogation is narrowing the search space, allowing for quicker computation and less possibilities to consider.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: The Diagonal Sudoku problem states that the diagonal units (i.e. A1, B2, C3….I9 and A9, B8, C7…I1) must also consist of distinct values of 1 to 9. This is in fact adding another constraint to the Sudoku board, which limits the search space and reduces the number of possibilties. To add this constraint to the list of constraints, each diagonal is listed and added to the units list. The elimination, only choice, search and naked twins problems will then all adhere to the new constraint. This shows that introducing new constraints limits the search space and reduces the number of possible solutions on the Sudoku board.
 
 ### Install
 
