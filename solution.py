@@ -18,9 +18,20 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
-
     # Find all instances of naked twins
+    twin_boxes = [(box, peer) for box in values.keys() for peer in peers[box] if len(values[box]) == 2 and values[box] == values[peer]]
     # Eliminate the naked twins as possibilities for their peers
+    for box_tuple in twin_boxes:
+        twin_units = [unit for unit in unitlist if box_tuple[0] in unit and box_tuple[1] in unit]
+        for twin_unit in twin_units:
+            for box in twin_unit:
+                for v in values[box_tuple[0]]:
+                    if v in values[box] and box not in box_tuple and len(values[box]) > 1:
+                        assign_value(values, box, values[box].replace(v, ''))
+    return values
+        
+            
+        
 
 rows = 'ABCDEFGHI'
 cols = '123456789'
@@ -82,7 +93,7 @@ def eliminate(values):
     for box in solved_values:
         digit = values[box]
         for peer in peers[box]:
-            values[peer] = values[peer].replace(digit,'')
+            assign_value(values, peer, values[peer].replace(digit,''))
     return values
 
 def only_choice(values):
@@ -96,6 +107,7 @@ def only_choice(values):
             dplaces = [box for box in unit if digit in values[box]]
             if len(dplaces) == 1:
                 values[dplaces[0]] = digit
+                assign_value(values, dplaces[0], digit)
     return values
 
 def reduce_puzzle(values):
@@ -112,6 +124,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
+        values = naked_twins(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
