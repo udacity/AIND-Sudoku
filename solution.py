@@ -45,8 +45,10 @@ boxes = cross(rows, cols)
 row_units = [cross(row, cols) for row in rows]
 column_units = [cross(rows, col) for col in cols]
 square_units = [cross(row, col) for row in ['ABC', 'DEF', 'GHI'] for col in ['123', '456', '789']]
+# isolating the diagonal elements A1,B2,C3....H8,I9 and A9,B8,C7....,H2,I1
 diagonal_units = [list(map(lambda x: ''.join(x), zip(rows, cols))),
                   list(map(lambda x: ''.join(x), zip(rows, reversed(cols))))]
+# adding the diagonal elements to the unitlist and peers set so they are updated through constraint propagation
 unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-{s}) for s in boxes)
@@ -84,24 +86,42 @@ def display(values):
     return
 
 def eliminate(values):
+    """
+
+    :param values:  The sudoku in dictionary form
+    :return: Modified values (dict) after eliminating digits that are solved
+    """
     for box in boxes:
         digits = values[box]
+        # identifying boxes that are solved
         if len(digits) == 1:
             for peer in peers[box]:
+                # eliminating identified digits from all peers
                 assign_value(values, peer, values[peer].replace(digits, ''))
     return values
 
 def only_choice(values):
+    """
+
+    :param values:  The sudoku in dictionary form
+    :return: Modified values (dict)
+    """
     for unit in unitlist:
         for box in unit:
             for char in values[box]:
-                if not [s for s in unit if s!= box and char in values[s]]:
+                # for a given unit identify the box that has a unique digit and assign that digit to the box
+                if not [s for s in unit if s != box and char in values[s]]:
                     assign_value(values, box, char)
                     break
 
     return values
 
 def reduce_puzzle(values):
+    """
+
+    :param values:  The sudoku in dictionary form
+    :return: Modified values (dict)
+    """
     stalled = False
     while not stalled:
         # Check how many boxes have a determined value
@@ -119,16 +139,17 @@ def reduce_puzzle(values):
     return values
 
 def search(values):
-    "Using depth-first search and propagation, create a search tree and solve the sudoku."
+    # "Using depth-first search combined with constraint propagation"
     # First, reduce the puzzle using the previous function
     new_values = reduce_puzzle(values)
     if new_values:
         val_array = [len(v) for v in new_values.values() if len(v) > 1]
-        # Choose one of the unfilled squares with the fewest possibilities
+        # Choosing the unfilled squares with the fewest possibilities but greater than 1
         if val_array:
             min_value = min(val_array)
             box = [square for square, value in new_values.items() if len(value) == min_value][0]
-            # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
+            # Using recursion to solve each one of the resulting sudokus
+            # If a recursion path does not return False then these values are returned back to the calling function
             for digit in values[box]:
                 temp = new_values.copy()
                 temp[box] = digit
@@ -143,7 +164,6 @@ def search(values):
 def solve(grid):
 
     """
-    Find the solution to a Sudoku grid.
     Args:
         grid(string): a string representing a sudoku grid.
             Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
