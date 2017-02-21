@@ -5,13 +5,13 @@
 Q: How do we use constraint propagation to solve the naked twins problem?  
 A: The `naked twin` function identifies all pairs of elements in the same unit, that have the exact same two digits. 
    It then iterates over their combined peers to eliminate these digits. This function plugs into the other stages of
-   contrain propogation, namely `only choice` and `eliminate` functions.
+   constraint propagation, namely `only choice` and `eliminate` functions.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
 A: In addition to the rows, columns and square units, we need to isolate the `diagonal` elements and add them to the 
-   `peers` set. Once we have these set up, their values are modified in the much the same way as the other elements in
-   the `peers` set, through successive stages of `contraint propogation` and `search`.
+   `peers` set. Once we have these set up, their values are modified in much the same way as the other elements in
+   the `peers` set, through successive stages of `constraint propagation` and `search`.
 
 ### Install
 
