@@ -12,6 +12,7 @@ def assign_value(values, box, value):
         assignments.append(values.copy())
     return values
 
+
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -23,20 +24,47 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+
+    # filter the list of boxes that have exactly two digits
     possible_naked_twins = [box for box, val in values.items() if len(val) == 2]
-    for i in range(len(possible_naked_twins)):
-        for j in range(i+1, len(possible_naked_twins)):
-            box1, box2 = (possible_naked_twins[i], possible_naked_twins[j])
-            if box2 in peers[box1] and values[box1] == values[box2]:
-                naked_digits = values[box1]
-                selected_peers = peers[box1].intersection(peers[box2])
-                for peer in selected_peers:
-                    assign_value(values, peer, values[peer].replace(naked_digits[0], ''))
-                    assign_value(values, peer, values[peer].replace(naked_digits[1], ''))
+
+    for box1, box2 in yieldtwins(possible_naked_twins, values):
+        eliminate_twins(box1, box2, values)
     return values
 
 
+def yieldtwins(possible_naked_twins, values):
+    """
 
+    :param possible_naked_twins: List containing all boxes with 2 digits
+    :param values: Dict containing all sudoku values
+    :return: tuple containing naked twins
+    """
+    # iterating through all boxes and finding the ones that are peers and whose digits match
+    for i in range(len(possible_naked_twins)):
+        # ensuring that the boxes aren't matched twice over
+        for j in range(i+1, len(possible_naked_twins)):
+            box1, box2 = (possible_naked_twins[i], possible_naked_twins[j])
+            # condition: boxes need to be peers and contain the same two digits
+            if box2 in peers[box1] and values[box1] == values[box2]:
+                yield (box1, box2)
+
+
+def eliminate_twins(box1, box2, values):
+    """
+
+    :param box1:
+    :param box2:
+    :param values:
+    :return:
+    """
+    naked_digits = values[box1]
+    # Set of all boxes that are common peers to the identified naked twins
+    selected_peers = peers[box1].intersection(peers[box2])
+    for peer in selected_peers:
+        # replacing both the digits from the selected peers
+        assign_value(values, peer, values[peer].replace(naked_digits[0], ''))
+        assign_value(values, peer, values[peer].replace(naked_digits[1], ''))
 
 
 def grid_values(grid):
@@ -56,6 +84,7 @@ def grid_values(grid):
             values[key] = digits
     return values
 
+
 def display(values):
     """
     Display the values as a 2-D grid.
@@ -67,8 +96,10 @@ def display(values):
     for r in rows:
         print(''.join(values[r+c].center(width)+('|' if c in '36' else '')
                       for c in cols))
-        if r in 'CF': print(line)
+        if r in 'CF':
+            print(line)
     return
+
 
 def eliminate(values):
     """
@@ -76,14 +107,17 @@ def eliminate(values):
     :param values:  The sudoku in dictionary form
     :return: Modified values (dict) after eliminating digits that are solved
     """
-    for box in boxes:
-        digits = values[box]
-        # identifying boxes that are solved
-        if len(digits) == 1:
-            for peer in peers[box]:
-                # eliminating identified digits from all peers
-                assign_value(values, peer, values[peer].replace(digits, ''))
+
+    # selecting only those boxes which have a single digit i.e. boxes that are solved
+    selected_boxes = [box for box in boxes if len(values[box]) == 1]
+
+    for box in selected_boxes:
+        solved_digit = values[box]
+        for peer in peers[box]:
+            # eliminating the digit in the solved box from all its peers
+            assign_value(values, peer, values[peer].replace(solved_digit, ''))
     return values
+
 
 def only_choice(values):
     """
@@ -100,6 +134,7 @@ def only_choice(values):
                     break
 
     return values
+
 
 def reduce_puzzle(values):
     """
@@ -122,6 +157,7 @@ def reduce_puzzle(values):
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
     return values
+
 
 def search(values):
     # "Using depth-first search combined with constraint propagation"
@@ -146,6 +182,7 @@ def search(values):
         else:
             return new_values
 
+
 def solve(grid):
 
     """
@@ -156,7 +193,6 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
     return search(grid_values(grid))
-
 
 
 if __name__ == '__main__':
