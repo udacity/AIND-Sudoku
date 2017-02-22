@@ -1,4 +1,5 @@
 from utils import *
+
 assignments = []
 
 
@@ -53,10 +54,10 @@ def yieldtwins(possible_naked_twins, values):
 def eliminate_twins(box1, box2, values):
     """
 
-    :param box1:
-    :param box2:
-    :param values:
-    :return:
+    :param box1: string representation of the box containing first twin
+    :param box2: string representation of the box containing second twin
+    :param values: Dict containing all sudoku values
+    :return: None
     """
     naked_digits = values[box1]
     # Set of all boxes that are common peers to the identified naked twins
@@ -77,7 +78,6 @@ def grid_values(grid):
             Keys: The boxes, e.g., 'A1'
             Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
     """
-
     values = dict(zip(boxes, grid))
     for key, value in values.items():
         if value is '.':
