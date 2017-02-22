@@ -1,7 +1,6 @@
 # Artificial Intelligence Nanodegree
-## Introductory Project: Diagonal Sudoku Solver
-
 [![Build Status](https://travis-ci.org/akshayphilar/AIND-Sudoku.svg?branch=master)](https://travis-ci.org/akshayphilar/AIND-Sudoku)
+## Introductory Project: Diagonal Sudoku Solver
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
