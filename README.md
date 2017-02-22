@@ -3,9 +3,14 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: The `naked twin` function identifies all pairs of elements in the same unit, that have the exact same two digits. 
-   It then iterates over their combined peers to eliminate these digits. This function plugs into the other stages of
-   constraint propagation, namely `only choice` and `eliminate` functions.
+A: The `Naked Twins` strategy involves identifying all such boxes, within the same unit, that have the **exact same two 
+digits** and eliminating those digits from the `peer set` that is **common to both those boxes**. 
+This strategy follows the `Elimination` and `Only Choice` reduction techniques and can potentially solve more difficult
+Sudoku problems without employing the `Search` technique.
+When employed before the `Search` step, eliminating naked twins reduces the number of recursions required to solve the 
+Sudoku.
+This function is thus implemented such that it plugs into the 'eliminate' and 'only_choice' function and returns the 
+reduced Sudoku before every successive call to the `Search` function. 
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
