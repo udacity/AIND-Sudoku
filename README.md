@@ -1,6 +1,8 @@
 # Artificial Intelligence Nanodegree
 ## Introductory Project: Diagonal Sudoku Solver
 
+[![Build Status](https://travis-ci.org/akshayphilar/AIND-Sudoku.svg?branch=master)](https://travis-ci.org/akshayphilar/AIND-Sudoku)
+
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
 A: The `Naked Twins` strategy involves identifying all such boxes, within the same unit, that have the **exact same two 
