@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: enforcing the contraint, within a peer's group, that no squares other than the 2 naked twins ones can contain the twin values.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: Enforce the new contraint from the new diagonal features. Need to update the contraint peers list for all squares located along the diagonal lines.  
 
 ### Install
 
