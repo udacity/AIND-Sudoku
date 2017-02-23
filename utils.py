@@ -15,9 +15,29 @@ square_units = [
     cross(rs, cs)
     for rs in ('ABC', 'DEF', 'GHI')
     for cs in ('123', '456', '789')]
+
+diagonal_units = [
+    [
+        r + c
+        for r_idx, r in enumerate(rows)
+        for c_idx, c in enumerate(cols)
+        if r_idx == c_idx
+    ],
+    [
+        r + c
+        for r_idx, r in enumerate(rows)
+        for c_idx, c in enumerate(reversed(list(cols)))
+        if r_idx == c_idx
+    ],
+]
+
 unitlist = row_units + column_units + square_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[])) - set([s])) for s in boxes)
+
+unitlist_with_diagonal = row_units + column_units + square_units + diagonal_units
+units_with_diagonal = dict((s, [u for u in unitlist_with_diagonal if s in u]) for s in boxes)
+peers_with_diagonal = dict((s, set(sum(units_with_diagonal[s],[])) - set([s])) for s in boxes)
 
 
 def display(values):
