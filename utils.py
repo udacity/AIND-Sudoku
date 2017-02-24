@@ -1,3 +1,8 @@
+"""
+Based from Udacity's solutions.
+"""
+
+
 rows = 'ABCDEFGHI'
 cols = '123456789'
 

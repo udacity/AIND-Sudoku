@@ -59,13 +59,10 @@ def naked_twins(values, diagonal=False):
     return solution_values
 
 
-def cross(A, B):
-    "Cross product of elements in A and elements in B."
-    pass
-
-
 def grid_values(grid):
     """
+    Based from Udacity's solutions.
+
     Convert grid into a dict of {square: char} with '123456789' for empties.
     Input: A grid in string form.
     Output: A grid in dictionary form
@@ -85,6 +82,8 @@ def grid_values(grid):
 
 def eliminate(values, diagonal=False):
     """
+    Based from Udacity's solutions.
+
     Go through all the boxes, and whenever there is a box with a value,
     eliminate this value from the values of all its peers.
     Input: A sudoku in dictionary form.
@@ -101,6 +100,8 @@ def eliminate(values, diagonal=False):
 
 def only_choice(values, diagonal=False):
     """
+    Based from Udacity's solutions.
+
     Go through all the units, and whenever there is a unit with a value that
     only fits in one box, assign the value to this box.
     Input: A sudoku in dictionary form.
@@ -116,6 +117,8 @@ def only_choice(values, diagonal=False):
 
 def reduce_puzzle(values, diagonal=False):
     """
+    Based from Udacity's solutions.
+
     Iterate eliminate() and only_choice(). If at some point, there is a box with no available values, return False.
     If the sudoku is solved, return the sudoku.
     If after an iteration of both functions, the sudoku remains the same, return the sudoku.
@@ -144,7 +147,9 @@ def is_puzzle_complete(values):
 
 
 def search(values, diagonal=False):
-    "Using depth-first search and propagation, create a search tree and solve the sudoku."
+    """
+    Using depth-first search and propagation, create a search tree and solve the sudoku.
+    """
     values = reduce_puzzle(values, diagonal=diagonal)
 
     if not values:
