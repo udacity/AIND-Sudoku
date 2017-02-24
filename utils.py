@@ -21,15 +21,12 @@ diagonal_units = [
         r + c
         for r_idx, r in enumerate(rows)
         for c_idx, c in enumerate(cols)
-        if r_idx == c_idx
-    ],
+        if r_idx == c_idx],
     [
         r + c
         for r_idx, r in enumerate(rows)
         for c_idx, c in enumerate(reversed(list(cols)))
-        if r_idx == c_idx
-    ],
-]
+        if r_idx == c_idx]]
 
 unitlist = row_units + column_units + square_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)

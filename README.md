@@ -3,17 +3,21 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: Naked twins allows us to reduce the space of possibilities in a given Unit where the twins exists.
+In this unit we are able to remove both the values of the twins on their peers.
+With this reduction we have a smaller space of possibilities and can get closer to a solution.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: Using the rule of the diagonal sudoku we add another kind of Units to our system, the diagonals.
+We use the same code we had before but using this Units as well.
+This means we use the constrains like only choice on the diagonal units in order to reduce the space of possibilities and get to a final solution.
 
 ### Install
 
 This project requires **Python 3**.
 
-We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
+We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project.
 Please try using the environment we provided in the Anaconda lesson of the Nanodegree.
 
 ##### Optional: Pygame
