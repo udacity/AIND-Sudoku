@@ -16,7 +16,7 @@ def assign_value(values, box, value):
     return values
 
 
-def naked_twins(values):
+def naked_twins(values, diagonal=False):
     """Eliminate values using the naked twins strategy.
     Args:
         values(dict): a dictionary of the form {'box_name': '123456789', ...}
@@ -29,7 +29,7 @@ def naked_twins(values):
     # Find all instances of naked twins
     for box, value in values.items():
         if len(value) == 2:
-            for unit in utils.units[box]:
+            for unit in (utils.units_with_diagonal if diagonal else utils.units)[box]:
                 for test_box in unit:
                     if test_box != box and value == values[test_box]:
                         if not twins.get(test_box):
@@ -47,7 +47,7 @@ def naked_twins(values):
     # Eliminate the naked twins as possibilities for their peers
     solution_values = values.copy()
     for box_1, box_2 in twins.items():
-        for unit in utils.units[box_1]:
+        for unit in (utils.units_with_diagonal if diagonal else utils.units)[box_1]:
             if box_2 in unit:
                 for test_box in unit:
                     if test_box != box_1 and test_box != box_2:
@@ -128,6 +128,7 @@ def reduce_puzzle(values, diagonal=False):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values, diagonal=diagonal)
         values = only_choice(values, diagonal=diagonal)
+        values = naked_twins(values, diagonal=diagonal)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
