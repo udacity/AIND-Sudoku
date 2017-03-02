@@ -33,6 +33,3 @@ If not, please see how to download pygame [here](http://www.pygame.org/download.
 
 To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in solution.py
 
-### Data
-
-The data consists of a text file of diagonal sudokus for you to solve.
