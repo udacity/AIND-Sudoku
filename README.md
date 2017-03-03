@@ -1,13 +1,32 @@
 # Artificial Intelligence Nanodegree
+[![Build Status](https://travis-ci.org/akshayphilar/AIND-Sudoku.svg?branch=master)](https://travis-ci.org/akshayphilar/AIND-Sudoku)
 ## Introductory Project: Diagonal Sudoku Solver
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: The `Naked Twins` strategy involves identifying all such boxes, within the same unit, that have the **exact same two 
+digits** and eliminating those digits from the `peer set` that is **common to both those boxes**. 
+
+This strategy follows the `Elimination` and `Only Choice` reduction techniques and can potentially solve more difficult
+Sudoku problems without employing the `Search` technique.
+
+When employed before the `Search` step, eliminating the naked twins can potentially reduce the number of recursions 
+required to solve the Sudoku. This is of course a factor of the number of `Naked Twins` found in the problem. 
+
+This function is thus implemented such that it plugs into the 'eliminate' and 'only_choice' function and returns the 
+reduced Sudoku before every successive call to the `Search` function.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: In a normal Sudoku, each box finds itself in three units namely `squares`, `rows` and `columns` and consequently has 
+the **same number of peers**. However in the diagonal sudoku problem, all box elements forming the main diagonals i.e. 
+`A1, B2, C3, D4, E5, F6, G7, H8, I9` and `I1, H2, G3, F4, D6, E5, C7, B8, A9` have an additional unit and a 
+**greater peer count**. Box `E5`, which is common to both diagonals, has **32** peers while each of the other boxes 
+forming the diagonals have **26** each.
+
+The challenge in a diagonal Sudoku is to identify the peers for each of the diagonal boxes and apply the same `contraint
+propogation` technique to eliminate digits from these peers in every successive step. The algorithm for all functions
+thus remains unchanged and it is only the data structures `unitlist`, `units` and `peers` that have to be setup correctly.
 
 ### Install
 
