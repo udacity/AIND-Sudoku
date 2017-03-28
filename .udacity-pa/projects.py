@@ -7,15 +7,8 @@ nanodegree = 'nd889'
 projects = ['sudoku']
 
 def submit(args):
-  filenames = ['solution.py', 'README']
+  filenames = ['solution.py', 'README.md']
 
-  if os.path.exists('README'):
-    raise RuntimeError("Unable to copy SubmissionReadme to README because README exists already!")
-
-  shutil.copy('SubmissionReadme.md', 'README')
-  try:
-    udacity.submit(nanodegree, projects[0], filenames, 
-                   environment = args.environment,
-                   jwt_path = args.jwt_path)
-  finally:
-    os.unlink('README')
+  udacity.submit(nanodegree, projects[0], filenames, 
+                 environment = args.environment,
+                 jwt_path = args.jwt_path)
