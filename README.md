@@ -3,11 +3,13 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: If we have a set of cells S belonhing to the unit U with the same possible values V and |S| == |V|, then according to the Pigeonhole principle (called in Russian Dirichlet's principle) we'll need all these cells to assign all this values and all these values are required to fill all these cells.
+Having the constraint that there exist no 2 cells in the unit having the same value, if there is a cell in U and not in S, then it can't have any of the values in V (since they should be assigned to one of the cells in S).
+That allows us to propagate the constraint and reduce the amount of possible solutions by removing ones that definitely violate the constraint of the problem.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: We just add the diagonals of the square to the units used as a constraints in constraint propagation techniques (elminate, only choice, naked twins).
 
 ### Install
 
