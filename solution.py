@@ -1,5 +1,5 @@
 import sys
-from visualize import visualize_assignments
+#from visualize import visualize_assignments
 
 assignments = []
 
@@ -110,15 +110,21 @@ def only_choice(values):
 
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
+    The naked twins strategy looks for two squares in the same unit that both have the same two possible digits.
+    We can therefore eliminate the twins from every other square in the A row unit. 
     Args:
         values(dict): a dictionary of the form {'box_name': '123456789', ...}
 
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
+    for unit in unitlist:
+        twoDigitBoxes = [box for box in unit if len(values[box]) == 2]
+        twoDigitValues = set()
+        for box in twoDigitBoxes:
+            twoDigitValues.add(values[box])
 
-    # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
+        print(twoDigitValues)
 
 
 def reduce_puzzle(values):
@@ -131,6 +137,8 @@ def reduce_puzzle(values):
         values = eliminate(values)
         # Use the Only Choice Strategy
         values = only_choice(values)
+        # Use Naked Twins Strategy
+        naked_twins(values)
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
