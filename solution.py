@@ -1,4 +1,6 @@
 import sys
+#to mesure runtime
+import time
 #from visualize import visualize_assignments
 
 assignments = []
@@ -110,7 +112,7 @@ def only_choice(values):
 
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
-    The naked twins strategy looks for two squares in the same unit that both have the same two possible digits.
+    The naked twins strategy looks for two boxes in the same unit that both have the same two possible digits.
     We can therefore eliminate the twins from every other square in the A row unit. 
     Args:
         values(dict): a dictionary of the form {'box_name': '123456789', ...}
@@ -119,12 +121,25 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
     for unit in unitlist:
+        #Get all the boxes with 2 elements, for example '14', '98', '56'
         twoDigitBoxes = [box for box in unit if len(values[box]) == 2]
-        twoDigitValues = set()
-        for box in twoDigitBoxes:
-            twoDigitValues.add(values[box])
 
-        print(twoDigitValues)
+
+        twoDigitValues = set()
+        nakedTwinsBoxes = []
+        #Find which boxes have the same two digits
+        for box in twoDigitBoxes:
+            if values[box] not in twoDigitValues:
+                twoDigitValues.add(values[box])
+            else:
+                nakedTwinsBoxes.append(box)
+
+        #Eliminate values from peers
+        for box in nakedTwinsBoxes:
+            for peer in peers[box]:
+                values[peer] = values[peer].replace(values[box],'')
+
+        return values       
 
 
 def reduce_puzzle(values):
@@ -138,7 +153,7 @@ def reduce_puzzle(values):
         # Use the Only Choice Strategy
         values = only_choice(values)
         # Use Naked Twins Strategy
-        naked_twins(values)
+        values = naked_twins(values)
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
@@ -186,10 +201,18 @@ def solve(grid):
 
 if __name__ == '__main__':
     diag_sudoku_grid1 = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    display(solve(diag_sudoku_grid1))
+    start_time = time.time()
+    result1 = solve(diag_sudoku_grid1)
+    end_time = time.time()
+    display(result1)
+    print("--- %s seconds ---" % (end_time - start_time))
 
     diag_sudoku_grid2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-    display(solve(diag_sudoku_grid2))
+    start_time = time.time()
+    result2 = solve(diag_sudoku_grid2)
+    end_time = time.time()
+    display(result2)
+    print("--- %s seconds ---" % (end_time - start_time))
 
     '''
     try:
