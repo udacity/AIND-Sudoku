@@ -121,25 +121,29 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
     for unit in unitlist:
-        #Get all the boxes with 2 elements, for example '14', '98', '56'
-        twoDigitBoxes = [box for box in unit if len(values[box]) == 2]
+        #Look for boxes that have 2 digits
+        twoDigitDict = {}
+        for box in unit:
+            if len(values[box]) == 2:
+                twoDigitValue = values[box]
+                if twoDigitValue not in twoDigitDict:
+                    #Add one element
+                    twoDigitDict[twoDigitValue] = [box]
+                else:
+                    twoDigitDict[twoDigitValue].append(box)
 
+        #Eliminates twins by checking if there are two values with the same two digits in same unit
+        for twoDigitValue, boxList in twoDigitDict.items():
+            if len(boxList) == 2:
+                for box in unit:
+                    if box in boxList:
+                        continue
+                    else:
+                        values[box] = values[box].replace(twoDigitValue[0], '')
+                        values[box] = values[box].replace(twoDigitValue[1], '')
 
-        twoDigitValues = set()
-        nakedTwinsBoxes = []
-        #Find which boxes have the same two digits
-        for box in twoDigitBoxes:
-            if values[box] not in twoDigitValues:
-                twoDigitValues.add(values[box])
-            else:
-                nakedTwinsBoxes.append(box)
+    return values   
 
-        #Eliminate values from peers
-        for box in nakedTwinsBoxes:
-            for peer in peers[box]:
-                values[peer] = values[peer].replace(values[box],'')
-
-        return values       
 
 
 def reduce_puzzle(values):
@@ -153,7 +157,7 @@ def reduce_puzzle(values):
         # Use the Only Choice Strategy
         values = only_choice(values)
         # Use Naked Twins Strategy
-        values = naked_twins(values)
+        #values = naked_twins(values)
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
@@ -200,20 +204,23 @@ def solve(grid):
 
 
 if __name__ == '__main__':
-    diag_sudoku_grid1 = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    start_time = time.time()
-    result1 = solve(diag_sudoku_grid1)
-    end_time = time.time()
-    display(result1)
-    print("--- %s seconds ---" % (end_time - start_time))
 
-    diag_sudoku_grid2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
-    start_time = time.time()
-    result2 = solve(diag_sudoku_grid2)
-    end_time = time.time()
-    display(result2)
-    print("--- %s seconds ---" % (end_time - start_time))
+    sudoku_grids = [
+        '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3',
+        '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......',
+        '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......',
+        '52...6.........7.13...........4..8..6......5...........418.........3..2...87.....',
+        '6.....8.3.4.7.................5.4.7.3..2.....1.6.......2.....5.....8.6......1....',
+        '48.3............71.2.......7.5....6....2..8.............1.76...3.....4......5....',
+        '1.....3.8.6.4..............2.3.1...........958.........5.6...7.....8.2...4.......'
+    ]
 
+    for sudoku_grid in sudoku_grids:
+        start_time = time.time()
+        result = solve(sudoku_grid)
+        end_time = time.time()
+        display(result)
+        print("--- %s seconds ---" % (end_time - start_time))
     '''
     try:
         visualize_assignments(assignments)
