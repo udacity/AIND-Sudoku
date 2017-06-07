@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: In Contrain propagation we use local contrains to reduce the search space in the puzzle. By repeatedly applying `eliminate`, `only_choice` and `naked_twins` inside `reduce` function, we reduce the possibilities in each box for every iteration.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: The first step is to add a new constrain; in this case the constrain is of not allowing the same number in the two main diagonals in the puzzle. I did it by adding two more units which I called `diagonal_units` and include them in `unitlist`. The program is coded in a way that only by adding this constrain the `reduce` function can apply the other functions in order to reduce the possible values in each box.
 
 ### Install
 
