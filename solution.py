@@ -49,7 +49,10 @@ square_units = [cross(rs, cs) for rs in ('ABC', 'DEF', 'GHI')
 # square_units[0] = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']
 # This is the top left square.
 
-unitlist = row_units + column_units + square_units
+diagonal_units = [['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9'] , ['A9', 'B8', 'C7', 'D6', 'E5', 'F4', 'G3', 'H2', 'I1']]
+# For the diagonal sudoku we need two extra units
+
+unitlist = row_units + column_units + square_units + diagonal_units
 
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 
@@ -157,7 +160,7 @@ def reduce_puzzle(values):
         # Use the Only Choice Strategy
         values = only_choice(values)
         # Use Naked Twins Strategy
-        #values = naked_twins(values)
+        values = naked_twins(values)
         # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         # If no new values were added, stop the loop.
@@ -219,8 +222,12 @@ if __name__ == '__main__':
         start_time = time.time()
         result = solve(sudoku_grid)
         end_time = time.time()
-        display(result)
-        print("--- %s seconds ---" % (end_time - start_time))
+
+        if result != False and result != None:
+            display(result)
+            print("--- %s seconds ---" % (end_time - start_time))
+        else:
+            print('This specific sudoku puzzle cannot be solved as a diagonal sudoku')
     '''
     try:
         visualize_assignments(assignments)
