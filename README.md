@@ -31,7 +31,7 @@ If not, please see how to download pygame [here](http://www.pygame.org/download.
 
 ### Visualizing
 
-To visualize your solution, please only assign values to the values_dict using the ```assign_values``` function provided in solution.py
+To visualize your solution, please only assign values to the values_dict using the `assign_value` function provided in solution.py
 
 ### Submission
 Before submitting your solution to a reviewer, you are required to submit your project to Udacity's Project Assistant, which will provide some initial feedback.  
