@@ -26,6 +26,19 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+    len2_values = [box for box in values.keys() if len(values[box]) == 2]
+
+    for box in len2_values:
+        for peer in peers[box]:
+            if values[peer] == values[box]:
+                box_t = peer
+        twins_peers = peer[box] & peer[box_t]
+        for p in twins_peers:
+            for d in values[p]:
+                if d in values[box]:
+                    assign_value(values, p, values[p].replace(d, ''))
+            # values[peer] = values[peer].replace(digit, '')
+    return values
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
@@ -75,7 +88,8 @@ def eliminate(values):
     for box in solved_values:
         digit = values[box]
         for peer in peers[box]:
-            values[peer] = values[peer].replace(digit, '')
+            assign_value(values, peer, values[peer].replace(digit, ''))
+            # values[peer] = values[peer].replace(digit, '')
     return values
 
 def only_choice(values):
@@ -88,7 +102,8 @@ def only_choice(values):
         for digit in '123456789':
             dplaces = [box for box in unit if digit in values[box]]
             if len(dplaces) == 1:
-                values[dplaces[0]] = digit
+                assign_value(values, dplaces[0], digit)
+                # values[dplaces[0]] = digit
     return values
 
 def reduce_puzzle(values):
@@ -105,6 +120,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
+        values = naked_twins(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
@@ -138,16 +154,25 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+
+    global rows, cols, boxes, row_units, column_units, square_units, unitlist, units, peers
+
     rows = 'ABCDEFGHI'
     cols = '123456789'
-    boxes = cross(rows, cols)
 
+    boxes = cross(rows, cols)
     row_units = [cross(r, cols) for r in rows]
     column_units = [cross(rows, c) for c in cols]
     square_units = [cross(rs, cs) for rs in ('ABC', 'DEF', 'GHI') for cs in ('123', '456', '789')]
     unitlist = row_units + column_units + square_units
     units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
     peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
+    values = grid_values(grid)
+
+    eliminate(values)
+    only_choice(values)
+
+    return naked_twins(values)
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
