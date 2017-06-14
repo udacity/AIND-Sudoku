@@ -32,12 +32,12 @@ def naked_twins(values):
         for peer in peers[box]:
             if values[peer] == values[box]:
                 box_t = peer
-        twins_peers = peer[box] & peer[box_t]
-        for p in twins_peers:
-            for d in values[p]:
-                if d in values[box]:
-                    assign_value(values, p, values[p].replace(d, ''))
-            # values[peer] = values[peer].replace(digit, '')
+                twins_peers = peers[box] & peers[box_t]
+                for p in twins_peers:
+                    for d in values[p]:
+                        if d in values[box]:
+                            assign_value(values, p, values[p].replace(d, ''))
+
     return values
 
 def cross(A, B):
@@ -172,7 +172,7 @@ def solve(grid):
     eliminate(values)
     only_choice(values)
 
-    return naked_twins(values)
+    return search(values)
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
