@@ -39,10 +39,32 @@ def naked_twins(values):
 
     Returns:
         the values dictionary with the naked twins eliminated from peers.
+    
+        for addressing this, we go through each unit list, choose all the boxes that only have two values
+        compare the values of boxes with each other and if and only if there are two boxes with similar values we can remove those two from their peers
     """
+    display(values)
+    for _units in unitlist:
+        print(_units)
+        unitsValues = []
+        twoValueBoxes =[]
+        for unit in _units:
+            if len(values[unit]) ==2:
+                twoValueBoxes.append(values[unit])
+            else:
+                unitsValues.append(unit)
+#        twoValueBoxes = [boxVal for boxVal in unitsValues if len(boxVal)==2 ]
+        for boxValue in twoValueBoxes:
+            if (twoValueBoxes.count(boxValue)==2):
+                #we have a case
+                for fullbox in unitsValues:
+                    if len(values[fullbox]) >2 and (boxValue[0] in values[fullbox] or boxValue[1] in values[fullbox]):
+                        values[fullbox] = values[fullbox].replace(boxValue[1],'')
+                        values[fullbox] = values[fullbox].replace(boxValue[0],'')
+                twoValueBoxes.remove(boxValue)
+    display(values)
+    return values
 
-    # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
 
 def grid_values(grid):
     """
