@@ -43,26 +43,20 @@ def naked_twins(values):
         for addressing this, we go through each unit list, choose all the boxes that only have two values
         compare the values of boxes with each other and if and only if there are two boxes with similar values we can remove those two from their peers
     """
-    display(values)
     for _units in unitlist:
-        print(_units)
-        unitsValues = []
-        twoValueBoxes =[]
+        twoDigitBoxes =[]
         for unit in _units:
             if len(values[unit]) ==2:
-                twoValueBoxes.append(values[unit])
-            else:
-                unitsValues.append(unit)
-#        twoValueBoxes = [boxVal for boxVal in unitsValues if len(boxVal)==2 ]
-        for boxValue in twoValueBoxes:
-            if (twoValueBoxes.count(boxValue)==2):
-                #we have a case
-                for fullbox in unitsValues:
-                    if len(values[fullbox]) >2 and (boxValue[0] in values[fullbox] or boxValue[1] in values[fullbox]):
-                        values[fullbox] = values[fullbox].replace(boxValue[1],'')
-                        values[fullbox] = values[fullbox].replace(boxValue[0],'')
-                twoValueBoxes.remove(boxValue)
-    display(values)
+                twoDigitBoxes.append(values[unit])
+        for potentialTwinVal in twoDigitBoxes:
+            if (twoDigitBoxes.count(potentialTwinVal)==2):
+                #we have a case that there are two units having a common two values and thus can remove these values from their peers
+                for peerUnit in _units:
+                    if len(values[peerUnit]) >2 and (potentialTwinVal[0] in values[peerUnit] or potentialTwinVal[1] in values[peerUnit]) and values[peerUnit] != potentialTwinVal:
+                        #if PeerUnit value is the same as potentialTwinVal we don't remove the values since it's one of the twins
+                        values[peerUnit] = values[peerUnit].replace(potentialTwinVal[1],'')
+                        values[peerUnit] = values[peerUnit].replace(potentialTwinVal[0],'')
+                twoDigitBoxes.remove(potentialTwinVal)
     return values
 
 
@@ -177,8 +171,7 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
-    girdValues= grid_values(grid)
-    return search(girdValues)
+    return search(grid_values(grid))
         
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
