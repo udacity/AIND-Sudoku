@@ -54,8 +54,8 @@ def naked_twins(values):
                 for peerUnit in _units:
                     if len(values[peerUnit]) >2 and (potentialTwinVal[0] in values[peerUnit] or potentialTwinVal[1] in values[peerUnit]) and values[peerUnit] != potentialTwinVal:
                         #if PeerUnit value is the same as potentialTwinVal we don't remove the values since it's one of the twins
-                        values[peerUnit] = values[peerUnit].replace(potentialTwinVal[1],'')
-                        values[peerUnit] = values[peerUnit].replace(potentialTwinVal[0],'')
+                        assign_value(values, peerUnit, values[peerUnit].replace(potentialTwinVal[1],''))
+                        assign_value(values, peerUnit, values[peerUnit].replace(potentialTwinVal[0],''))
                 twoDigitBoxes.remove(potentialTwinVal)
     return values
 
@@ -104,7 +104,7 @@ def eliminate(values):
     for box in solved_values:
         digit = values[box]
         for peer in peers[box]:
-            values[peer] = values[peer].replace(digit,'')
+            assign_value(values, peer, values[peer].replace(digit,''))
     return values
 
 def only_choice(values):
@@ -117,7 +117,7 @@ def only_choice(values):
         for digit in '123456789':
             dplaces = [box for box in unit if digit in values[box]]
             if len(dplaces) == 1:
-                values[dplaces[0]] = digit
+                assign_value(values, dplaces[0], digit)
     return values
 
 def reduce_puzzle(values):
@@ -132,8 +132,8 @@ def reduce_puzzle(values):
     stalled = False
     while not stalled:
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
-        values = eliminate(values)
-        values = only_choice(values)
+        eliminate(values)
+        only_choice(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
@@ -143,7 +143,7 @@ def reduce_puzzle(values):
 def search(values):
     "Using depth-first search and propagation, try all possible values."
     # First, reduce the puzzle using the previous function
-    values = reduce_puzzle(values)
+    reduce_puzzle(values)
     if values is False:
         return False ## Failed earlier
     if all(len(values[s]) == 1 for s in boxes): 
