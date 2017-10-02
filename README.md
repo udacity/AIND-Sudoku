@@ -24,10 +24,10 @@ If not, please see how to download pygame [here](http://www.pygame.org/download.
 
 ### Code
 
-* `solution.py` - You'll fill this in as part of your solution.
-* `test_solution.py` - Do not modify this. You can test your solution by running `python -m unittest`.
-* `PySudoku.py` - Do not modify this. This is code for visualizing your solution.
-* `visualize.py` - Do not modify this. This is code for visualizing your solution.
+* `solution.py` - Fill in the required functions in this file to complete the project.
+* `test_solution.py` - You can test your solution by running `python -m unittest`.
+* `PySudoku.py` - This is code for visualizing your solution.
+* `visualize.py` - This is code for visualizing your solution.
 
 ### Visualizing
 
