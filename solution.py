@@ -1,85 +1,164 @@
-assignments = []
 
-def assign_value(values, box, value):
-    """
-    Please use this function to update your values dictionary!
-    Assigns a value to a given box. If it updates the board record it.
-    """
+from utils import *
 
-    # Don't waste memory appending actions that don't actually change any values
-    if values[box] == value:
-        return values
 
-    values[box] = value
-    if len(value) == 1:
-        assignments.append(values.copy())
-    return values
+row_units = [cross(r, cols) for r in rows]
+column_units = [cross(rows, c) for c in cols]
+square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
+unitlist = row_units + column_units + square_units
+
+# TODO: Update the unit list to add the new diagonal units
+unitlist = unitlist
+
+units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
+peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
+
 
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
-    Args:
-        values(dict): a dictionary of the form {'box_name': '123456789', ...}
 
-    Returns:
-        the values dictionary with the naked twins eliminated from peers.
-    """
+    Parameters
+    ----------
+    values(dict)
+        a dictionary of the form {'box_name': '123456789', ...}
 
-    # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
+    Returns
+    -------
+    dict
+        The values dictionary with the naked twins eliminated from peers
 
-def cross(A, B):
-    "Cross product of elements in A and elements in B."
-    pass
+    Notes
+    -----
+    Your solution can either process all pairs of naked twins from the input once,
+    or it can continue processing pairs of naked twins until there are no such
+    pairs remaining -- the project assistant test suite will accept either
+    convention. However, it will not accept code that does not process all pairs
+    of naked twins from the original input. (For example, if you start processing
+    pairs of twins and eliminate another pair of twins before the second pair
+    is processed then your code will fail the PA test suite.)
 
-def grid_values(grid):
+    The first convention is preferred for consistency with the other strategies,
+    and because it is simpler (since the reduce_puzzle function already calls this
+    strategy repeatedly).
     """
-    Convert grid into a dict of {square: char} with '123456789' for empties.
-    Args:
-        grid(string) - A grid in string form.
-    Returns:
-        A grid in dictionary form
-            Keys: The boxes, e.g., 'A1'
-            Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
-    """
-    pass
+    # TODO: Implement this function!
+    raise NotImplementedError
 
-def display(values):
-    """
-    Display the values as a 2-D grid.
-    Args:
-        values(dict): The sudoku in dictionary form
-    """
-    pass
 
 def eliminate(values):
-    pass
+    """Apply the eliminate strategy to a Sudoku puzzle
+
+    The eliminate strategy says that if a box has a value assigned, then none
+    of the peers of that box can have the same value.
+
+    Parameters
+    ----------
+    values(dict)
+        a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns
+    -------
+    dict
+        The values dictionary with the assigned values eliminated from peers
+    """
+    # TODO: Copy your code from the classroom to complete this function
+    raise NotImplementedError
+
 
 def only_choice(values):
-    pass
+    """Apply the only choice strategy to a Sudoku puzzle
+
+    The only choice strategy says that if only one box in a unit allows a certain
+    digit, then that box must be assigned that digit.
+
+    Parameters
+    ----------
+    values(dict)
+        a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns
+    -------
+    dict
+        The values dictionary with all single-valued boxes assigned
+
+    Notes
+    -----
+    You should be able to complete this function by copying your code from the classroom
+    """
+    # TODO: Copy your code from the classroom to complete this function
+    raise NotImplementedError
+
 
 def reduce_puzzle(values):
-    pass
+    """Reduce a Sudoku puzzle by repeatedly applying all constraint strategies
+
+    Parameters
+    ----------
+    values(dict)
+        a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns
+    -------
+    dict or False
+        The values dictionary after continued application of the constraint strategies
+        no longer produces any changes, or False if the puzzle is unsolvable 
+    """
+    # TODO: Copy your code from the classroom and modify it to complete this function
+    raise NotImplementedError
+
 
 def search(values):
-    pass
+    """Apply depth first search to solve Sudoku puzzles in order to solve puzzles
+    that cannot be solved by repeated reduction alone.
+
+    Parameters
+    ----------
+    values(dict)
+        a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns
+    -------
+    dict or False
+        The values dictionary with all boxes assigned or False
+
+    Notes
+    -----
+    You should be able to complete this function by copying your code from the classroom
+    and extending it to call the naked twins strategy.
+    """
+    # TODO: Copy your code from the classroom to complete this function
+    raise NotImplementedError
+
 
 def solve(grid):
-    """
-    Find the solution to a Sudoku grid.
-    Args:
-        grid(string): a string representing a sudoku grid.
-            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    Returns:
-        The dictionary representation of the final sudoku grid. False if no solution exists.
-    """
+    """Find the solution to a Sudoku puzzle using search and constraint propagation
 
-if __name__ == '__main__':
+    Parameters
+    ----------
+    grid(string)
+        a string representing a sudoku grid.
+        
+        Ex. '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+
+    Returns
+    -------
+    dict or False
+        The dictionary representation of the final sudoku grid or False if no solution exists.
+    """
+    values = grid2values(grid)
+    values = search(values)
+    return values
+
+
+if __name__ == "__main__":
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    display(solve(diag_sudoku_grid))
+    display(grid2values(diag_sudoku_grid))
+    result = solve(diag_sudoku_grid)
+    display(result)
 
     try:
-        from visualize import visualize_assignments
-        visualize_assignments(assignments)
+        import PySudoku
+        PySudoku.play(grid2values(diag_sudoku_grid), result, history)
 
     except SystemExit:
         pass
