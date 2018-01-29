@@ -10,8 +10,10 @@ unitlist = row_units + column_units + square_units
 # TODO: Update the unit list to add the new diagonal units
 unitlist = unitlist
 
-units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
-peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
+
+# Must be called after all units (including diagonals) are added to the unitlist
+units = extract_units(unitlist, boxes)
+peers = extract_peers(units, boxes)
 
 
 def naked_twins(values):
