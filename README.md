@@ -63,7 +63,7 @@ To submit your code, run `udacity submit` from a terminal in the top-level direc
 
 The Udacity-PA CLI tool is automatically installed with the AIND conda environment provided in the classroom, but you can also install it manually by running `pip install udacity-pa`. You can submit your code for scoring by running `udacity submit`. The project assistant server has a collection of unit tests that it will execute on your code, and it will provide feedback on any successes or failures. You must pass all test cases in the project assistant to pass the project.
 
-When your project passes all test cases on the Project Assistant, you will automatically receive credit for the project in the classroom. (Unlike other projects, this one does not require any manual submission in the classroom to complete.)
+Once your project passes all test cases on the Project Assistant, submit the zip file created by the `udacity submit` command in the classroom to automatically receive credit for the project. NOTE: You will not receive personalized feedback for this project on submissions that pass all test cases, however, all other projects in the term do provide personalized feedback on both passing & failing submissions.
 
 
 ## Troubleshooting
