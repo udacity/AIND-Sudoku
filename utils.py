@@ -5,7 +5,7 @@ from collections import defaultdict
 rows = 'ABCDEFGHI'
 cols = '123456789'
 boxes = [r + c for r in rows for c in cols]
-history = {}  # history must be declared here so that it exists in the assign_values scope
+history = {}  # history must be declared here so that it exists in the assign_values scope.
 
 
 def extract_units(unitlist, boxes):
