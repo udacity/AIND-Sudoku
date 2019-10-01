@@ -11,7 +11,7 @@ unitlist = row_units + column_units + square_units
 unitlist = unitlist
 
 
-# Must be called after all units (including diagonals) are added to the unitlist
+# Must be called after all units (including diagonals) are added to the unit list
 units = extract_units(unitlist, boxes)
 peers = extract_peers(units, boxes)
 
